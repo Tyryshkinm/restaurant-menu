@@ -11,6 +11,17 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Adminer route
+Route::any('adminer', '\Miroc\LaravelAdminer\AdminerController@index');
+
+// Auth routes
+Auth::routes();
+
+// Homepage route
+Route::get('/', 'MenuController@index');
+
+// Menus routes
+Route::resource('menus', 'MenuController');
+
+// Products routes
+Route::resource('menus.products', 'ProductController');
