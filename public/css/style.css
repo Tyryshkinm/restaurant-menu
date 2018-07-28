@@ -1,6 +1,7 @@
 .card-header {
     display: flex;
     align-items: center;
+    justify-content: space-between;
 }
 
 .card-body:nth-child(n+3) {
@@ -23,7 +24,6 @@
 .entity-add {
     display: flex;
     justify-content: flex-end;
-    width: 100%;
 }
 
 .bc {
