@@ -1,60 +1,291 @@
-<p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
+## API
+In this api you have to set two headers:
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
-</p>
+`Content-Type: application/json`
 
-## About Laravel
+`X-Requested-With: XMLHttpRequest`
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as:
+[TOC]
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### User:
+####Signup
 
-Laravel is accessible, yet powerful, providing tools needed for large, robust applications.
+------------
 
-## Learning Laravel
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of any modern web application framework, making it a breeze to get started learning the framework.
+Method: `POST`
+URL: **/api/auth/signup**
 
-If you're not in the mood to read, [Laracasts](https://laracasts.com) contains over 1100 video tutorials on a range of topics including Laravel, modern PHP, unit testing, JavaScript, and more. Boost the skill level of yourself and your entire team by digging into our comprehensive video library.
+Request data:
+```json
+{
+	"name": "string",
+	"email": "email",
+	"password": "string",
+	"password_confirmation": "string"
+}
+```
+Response data (201):
+```json
+{
+	"message": "Successfully created user!"
+}
+```
+####Login
 
-## Laravel Sponsors
+------------
 
-We would like to extend our thanks to the following sponsors for helping fund on-going Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell):
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[British Software Development](https://www.britishsoftware.co)**
-- [Fragrantica](https://www.fragrantica.com)
-- [SOFTonSOFA](https://softonsofa.com/)
-- [User10](https://user10.com)
-- [Soumettre.fr](https://soumettre.fr/)
-- [CodeBrisk](https://codebrisk.com)
-- [1Forge](https://1forge.com)
-- [TECPRESSO](https://tecpresso.co.jp/)
-- [Runtime Converter](http://runtimeconverter.com/)
-- [WebL'Agence](https://weblagence.com/)
-- [Invoice Ninja](https://www.invoiceninja.com)
+Method: `POST`
+URL: **/api/auth/login**
 
-## Contributing
+Request data:
+```json
+{
+	"email": "email",
+	"password": "string",
+	"remember_me": true
+}
+```
+Example response data (200):
+```json
+{
+	"access_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjcyMGE3YmNlMzY0Yzc3MTM0ODc2ZTlkZjgxYzYxNGUwMDczNzYyNjU4MjgyNzZmOThlYzZhMWVmYWIyZjk1YzA0NzUyZjcxZDhkNTI0ZWFhIn0.eyJhdWQiOiIxIiwianRpIjoiNzIwYTdiY2UzNjRjNzcxMzQ4NzZlOWRmODFjNjE0ZTAwNzM3NjI2NTgyODI3NmY5OGVjNmExZWZhYjJmOTVjMDQ3NTJmNzFkOGQ1MjRlYWEiLCJpYXQiOjE1MzI4NTk0MTksIm5iZiI6MTUzMjg1OTQxOSwiZXhwIjoxNTY0Mzk1NDE5LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.tBTxHQaRCoxwKM6w8O8hUFQ-7FwZbbWHoVR3WdBrUEZZiMPGCSWf6NCKAIEC1oJMhA0640XQdW0MbnkRb8HO0o138n6FhSB_mI8p8uCQ0agf2ruLNeXU3378GZMlvN9pklu4Z2PH703YQ-sfQtj0JIIwiHOERhDXsWLAkHBYNKOZAdvzkuvE7v1SvKKxqYFkuAKrF7JYIj4LQUl-sk2ZdkRl9ZClIPwz0oeuWv5Gn6B_r5C-GNoqJefarAP0-DJwMXYyaXS-qVXrdZ6jI2Hj684kf7dlHH1LjCNkY94YSvlV_uPmIOOJqXISGvpzOXKvhGqKCneRNpkdK_xYj1A6_MyJiVP9mDS48EM10DEeeGEtR0Vhues1P5OQdZ6NTIEqEq2Q0WYqqsOu05u5c1KX9NYWjeWKzzq542CxuZU5GBLYuksg7BkReYb6oxA2Q71Ear6MNm6SKd3dxDfjilWS50Pmw5lRLOR0-z4qC7GCentlGk0SXjrMNXEV6CwWmhKVaAO60yn231OhttRZa0ITsbDsup5Msb-7Ca8dL6bJvZbiZgay4felFXpZwvgwIoXiNy_8L8TZ20LJoPgsTIubGAAsAoCBKQkK20dipqgitBHJL3sY84TEUkeoF9NYWHGKDShf9bhnLpY6P3cZ6yx6enpPj99F56NEAMHfMpd7PyY",
+	"token_type": "Bearer",
+	"expires_at": "2019-07-29 10:16:59"
+}
+```
+####Logout
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+------------
 
-## Security Vulnerabilities
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Method: `GET`
+URL: **/api/auth/logout**
 
-## License
+Header: `Authorization: Bearer access_token `
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Response data (200):
+```json
+{
+	"message": "Successfully logged out"
+}
+```
+####User
+
+------------
+
+Method: `GET`
+URL: **/api/auth/user**
+
+Header: `Authorization: Bearer access_token `
+
+Example response data (200):
+```json
+{
+	"id": 1,
+	"name": "test",
+	"email": "test@test.com",
+	"created_at": "2018-07-29 08:35:51",
+	"updated_at": "2018-07-29 08:35:51"
+}
+```
+### Menu:
+####Get a listing of the menu
+
+------------
+
+Method: `GET`
+URL: **/api/menus**
+
+Example response data (200):
+```json
+[
+	{
+		"id": 1,
+		"name": "Pan-Asian cuisine",
+		"enabledFrom": "2018-07-29 12:00:00",
+		"enabledUntil": "2018-07-29 16:00:00",
+		"created_at": "2018-07-29 08:35:51",
+		"updated_at": "2018-07-29 08:35:51"
+	},
+	{
+		"id": 2,
+		"name": "Buryat cuisine",
+		"enabledFrom": "2018-07-29 16:00:00",
+		"enabledUntil": "2018-07-29 20:00:00",
+		"created_at": "2018-07-29 08:35:51",
+		"updated_at": "2018-07-29 08:35:51"
+	}
+]
+```
+####Get the specified menu (get products of the specified menu)
+
+------------
+
+
+Method: `GET`
+URL: **/api/menus/{menu_id}**
+
+Example URL: /api/menus/1
+Example response data (200):
+```json
+[
+	{
+		"id": 1,
+		"name": "Quesadilla",
+		"menu_id": 1,
+		"position": 1,
+		"created_at": "2018-07-29 08:35:51",
+		"updated_at": "2018-07-29 08:35:51"
+	},
+	{
+		"id": 2,
+		"name": "Ramen",
+		"menu_id": 1,
+		"position": 1,
+		"created_at": "2018-07-29 08:35:51",
+		"updated_at": "2018-07-29 08:35:51"
+	},
+	{
+		"id": 3,
+		"name": "Tom-Yam",
+		"menu_id": 1,
+		"position": 1,
+		"created_at": "2018-07-29 08:35:51",
+		"updated_at": "2018-07-29 08:35:51"
+	}
+]
+```
+####Create new menu
+
+------------
+
+
+Method: `POST`
+URL: **/api/menus**
+
+Header: `Authorization: Bearer access_token `
+
+Request data:
+```json
+{
+	"name": "string",
+	"enabledFrom": "datetime",
+	"enabledUntil": "datetime"
+}
+```
+Example response data (201):
+```json
+{
+	"name": "New menu created via the API",
+	"enabledFrom": "2018-07-29 08:35:51",
+	"enabledUntil": "2018-07-29 12:35:51",
+	"updated_at": "2018-07-29 10:51:42",
+	"created_at": "2018-07-29 10:51:42",
+	"id": 3
+}
+```
+####Update the specified menu
+
+------------
+
+Method: `PUT`
+URL: **/api/menus/{menu_id}**
+
+Header: `Authorization: Bearer access_token `
+
+Request data:
+```json
+{
+	"name": "string",
+	"enabledFrom": "datetime",
+	"enabledUntil": "datetime"
+}
+```
+Example response data (200):
+```json
+{
+	"id": 3,
+	"name": "Updated menu via api",
+	"enabledFrom": "2018-07-29 08:35:51",
+	"enabledUntil": "2018-07-29 12:35:51",
+	"created_at": "2018-07-29 10:51:42",
+	"updated_at": "2018-07-29 10:55:46"
+}
+```
+####Remove the specified menu
+
+------------
+
+Method: `DELETE`
+URL: **/api/menus/{menu_id}**
+
+Header: `Authorization: Bearer access_token `
+
+Response data (204): return null.
+### Product:
+####Create new product to the specified menu
+
+------------
+
+Method: `POST`
+URL: **/api/menus/{menu_id}/products**
+
+Header: `Authorization: Bearer access_token `
+
+Request data:
+```json
+{
+	"name": "string",
+	"position": "integer"
+}
+```
+Example response data (201):
+```json
+{
+	"name": "Created product via api",
+	"position": 1,
+	"menu_id": "1",
+	"updated_at": "2018-07-29 13:10:21",
+	"created_at": "2018-07-29 13:10:21",
+	"id": 9
+}
+```
+####Update the specified product
+
+------------
+
+Method: `PUT`
+URL: **/api/menus/{menu_id}/products/{product_id}**
+
+Header: `Authorization: Bearer access_token `
+
+Request data:
+```json
+{
+	"name": "string",
+	"position": "integer"
+}
+```
+Example response data (200):
+```json
+{
+	"id": 1,
+	"name": "Update product via api",
+	"menu_id": 1,
+	"position": 1,
+	"created_at": "2018-07-29 12:40:49",
+	"updated_at": "2018-07-29 12:59:15"
+}
+```
+####Remove the specified product
+
+------------
+
+Method: `DELETE`
+URL: **/api/menus/{menu_id}/products/{product_id}**
+
+Header: `Authorization: Bearer access_token `
+
+Response data (204): return null.

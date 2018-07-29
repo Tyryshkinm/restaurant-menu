@@ -24,4 +24,4 @@ Route::get('/', 'MenuController@index');
 Route::resource('menus', 'MenuController');
 
 // Products routes
-Route::resource('menus.products', 'ProductController');
+Route::resource('menus.products', 'ProductController', ['except' => ['index', 'show']]);

@@ -14,7 +14,7 @@ class DatabaseSeeder extends Seeder
     {
         DB::table('users')->insert([
             'name' => 'admin',
-            'email' => 'admin@admin',
+            'email' => 'admin@admin.com',
             'password' => bcrypt('secret'),
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now()
@@ -47,7 +47,7 @@ class DatabaseSeeder extends Seeder
         DB::table('products')->insert([
             'name' => 'Ramen',
             'menu_id' => 1,
-            'position' => 1,
+            'position' => 2,
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now()
         ]);
@@ -55,7 +55,7 @@ class DatabaseSeeder extends Seeder
         DB::table('products')->insert([
             'name' => 'Tom-Yam',
             'menu_id' => 1,
-            'position' => 1,
+            'position' => 3,
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now()
         ]);
@@ -71,7 +71,7 @@ class DatabaseSeeder extends Seeder
         DB::table('products')->insert([
             'name' => 'Tea',
             'menu_id' => 2,
-            'position' => 1,
+            'position' => 2,
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now()
         ]);

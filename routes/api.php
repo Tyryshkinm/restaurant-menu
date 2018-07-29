@@ -1,8 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
-use App\Http\Controllers\Api\MenuController;
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -14,6 +11,7 @@ use App\Http\Controllers\Api\MenuController;
 |
 */
 
+// Auth routes
 Route::group([
     'prefix' => 'auth'
 ], function () {
@@ -28,5 +26,8 @@ Route::group([
     });
 });
 
-Route::get('menus', 'Api\MenuController@index');
-Route::get('menus/{id}', 'Api\MenuController@show');
+// Menus routes
+Route::resource('menus', 'Api\MenuController', ['except' => ['create', 'edit']]);
+
+// Products routes
+Route::resource('menus.products', 'Api\ProductController', ['except' => ['index', 'create', 'edit', 'show']]);

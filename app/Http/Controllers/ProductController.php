@@ -9,7 +9,7 @@ class ProductController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth', ['except' => ['show']]);
+        $this->middleware('auth');
     }
 
     /**
@@ -32,9 +32,10 @@ class ProductController extends Controller
      */
     public function store(Request $request, $menuId)
     {
+        $request->request->add(['menu_id' => $menuId]);
         $request->validate([
             'name' => 'required|string',
-            'position' => 'required|integer'
+            'position' => 'required|integer|unique_with:products,menu_id',
         ]);
         $product = new Product([
             'name' => $request->input('name'),
