@@ -134,6 +134,7 @@ Method: `GET`
 URL: **/api/menus/{menu_id}**
 
 Example URL: /api/menus/1
+
 Example response data (200):
 ```json
 [
