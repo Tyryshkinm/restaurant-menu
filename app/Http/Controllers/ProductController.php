@@ -35,7 +35,7 @@ class ProductController extends Controller
         $request->request->add(['menu_id' => $menuId]);
         $request->validate([
             'name' => 'required|string',
-            'position' => 'required|integer|unique_with:products,menu_id',
+            'position' => 'required|integer|unique_with:products,menu_id'
         ]);
         $product = new Product([
             'name' => $request->input('name'),
@@ -71,7 +71,7 @@ class ProductController extends Controller
     {
         $request->validate([
             'name' => 'required|string',
-            'position' => 'required|integer'
+            'position' => 'required|integer|unique_with:products,menu_id'
         ]);
         $product = Product::findOrFail($productId);
         $product->name = $request->input('name');

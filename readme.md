@@ -8,12 +8,13 @@ In this api you have to set two headers:
 [TOC]
 
 ### User:
-####Signup
+#### Signup
 
 ------------
 
 
 Method: `POST`
+
 URL: **/api/auth/signup**
 
 Request data:
@@ -31,12 +32,13 @@ Response data (201):
 	"message": "Successfully created user!"
 }
 ```
-####Login
+#### Login
 
 ------------
 
 
 Method: `POST`
+
 URL: **/api/auth/login**
 
 Request data:
@@ -55,12 +57,13 @@ Example response data (200):
 	"expires_at": "2019-07-29 10:16:59"
 }
 ```
-####Logout
+#### Logout
 
 ------------
 
 
 Method: `GET`
+
 URL: **/api/auth/logout**
 
 Header: `Authorization: Bearer access_token `
@@ -71,11 +74,12 @@ Response data (200):
 	"message": "Successfully logged out"
 }
 ```
-####User
+#### User
 
 ------------
 
 Method: `GET`
+
 URL: **/api/auth/user**
 
 Header: `Authorization: Bearer access_token `
@@ -91,11 +95,12 @@ Example response data (200):
 }
 ```
 ### Menu:
-####Get a listing of the menu
+#### Get a listing of the menu
 
 ------------
 
 Method: `GET`
+
 URL: **/api/menus**
 
 Example response data (200):
@@ -119,12 +124,13 @@ Example response data (200):
 	}
 ]
 ```
-####Get the specified menu (get products of the specified menu)
+#### Get the specified menu (get products of the specified menu)
 
 ------------
 
 
 Method: `GET`
+
 URL: **/api/menus/{menu_id}**
 
 Example URL: /api/menus/1
@@ -157,12 +163,13 @@ Example response data (200):
 	}
 ]
 ```
-####Create new menu
+#### Create new menu
 
 ------------
 
 
 Method: `POST`
+
 URL: **/api/menus**
 
 Header: `Authorization: Bearer access_token `
@@ -186,11 +193,12 @@ Example response data (201):
 	"id": 3
 }
 ```
-####Update the specified menu
+#### Update the specified menu
 
 ------------
 
 Method: `PUT`
+
 URL: **/api/menus/{menu_id}**
 
 Header: `Authorization: Bearer access_token `
@@ -214,22 +222,24 @@ Example response data (200):
 	"updated_at": "2018-07-29 10:55:46"
 }
 ```
-####Remove the specified menu
+#### Remove the specified menu
 
 ------------
 
 Method: `DELETE`
+
 URL: **/api/menus/{menu_id}**
 
 Header: `Authorization: Bearer access_token `
 
 Response data (204): return null.
 ### Product:
-####Create new product to the specified menu
+#### Create new product to the specified menu
 
 ------------
 
 Method: `POST`
+
 URL: **/api/menus/{menu_id}/products**
 
 Header: `Authorization: Bearer access_token `
@@ -252,11 +262,12 @@ Example response data (201):
 	"id": 9
 }
 ```
-####Update the specified product
+#### Update the specified product
 
 ------------
 
 Method: `PUT`
+
 URL: **/api/menus/{menu_id}/products/{product_id}**
 
 Header: `Authorization: Bearer access_token `
@@ -279,11 +290,12 @@ Example response data (200):
 	"updated_at": "2018-07-29 12:59:15"
 }
 ```
-####Remove the specified product
+#### Remove the specified product
 
 ------------
 
 Method: `DELETE`
+
 URL: **/api/menus/{menu_id}/products/{product_id}**
 
 Header: `Authorization: Bearer access_token `

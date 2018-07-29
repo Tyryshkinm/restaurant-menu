@@ -24,7 +24,7 @@ class ProductController extends Controller
     {
         $request->validate([
             'name' => 'required|string',
-            'position' => 'required|integer'
+            'position' => 'required|integer|unique_with:products,menu_id'
         ]);
         $request->request->add(['menu_id' => $menuId]);
         $product = Product::create($request->all());
@@ -43,7 +43,7 @@ class ProductController extends Controller
     {
         $request->validate([
             'name' => 'required|string',
-            'position' => 'required|integer'
+            'position' => 'required|integer|unique_with:products,menu_id'
         ]);
         $product->update($request->all());
         return response()->json($product, 200);
