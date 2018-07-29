@@ -13,7 +13,7 @@ class MenuController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
+     * Display a listing of the menu.
      *
      * @return \Illuminate\Http\Response
      */
@@ -24,7 +24,7 @@ class MenuController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show the form for creating a new menu.
      *
      * @return \Illuminate\Http\Response
      */
@@ -34,23 +34,29 @@ class MenuController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created menu in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        $menu = new Menu();
-        $menu->name = $request->input('name');
-        $menu->enabledFrom = $request->input('enabledFrom');
-        $menu->enabledUntil = $request->input('enabledUntil');
+        $request->validate([
+            'name' => 'required|string',
+            'enabledFrom' => 'required',
+            'enabledUntil' => 'required'
+        ]);
+        $menu = new Menu([
+            'name' => $request->input('name'),
+            'enabledFrom' => $request->input('enabledFrom'),
+            'enabledUntil' => $request->input('enabledUntil')
+        ]);
         $menu->save();
         return redirect()->route('menus.index');
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified menu.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -62,7 +68,7 @@ class MenuController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Show the form for editing the specified menu.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -74,7 +80,7 @@ class MenuController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified menu in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
@@ -82,6 +88,11 @@ class MenuController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'name' => 'required|string',
+            'enabledFrom' => 'required',
+            'enabledUntil' => 'required'
+        ]);
         $menu = Menu::findOrFail($id);
         $menu->name = $request->input('name');
         $menu->enabledFrom = $request->input('enabledFrom');
@@ -91,7 +102,7 @@ class MenuController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified menu from storage.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response

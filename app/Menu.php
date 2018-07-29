@@ -6,6 +6,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class Menu extends Model
 {
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'name', 'enabledFrom', 'enabledUntil',
+    ];
+
     public function products()
     {
         return $this->hasMany(Product::class);

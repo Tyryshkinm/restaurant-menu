@@ -13,9 +13,9 @@ class ProductController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show the form for creating a new product.
      *
-     * @param $menuId
+     * @param int $menuId
      * @return \Illuminate\Http\Response
      */
     public function create($menuId)
@@ -24,31 +24,32 @@ class ProductController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created product in storage.
      *
      * @param  \Illuminate\Http\Request $request
-     * @param $menuId
+     * @param int $menuId
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request, $menuId)
     {
-//        $this->validate($request, [
-//            'name' => 'required',
-//            'position' => ''
-//        ]);
-        $product = new Product();
-        $product->name = $request->input('name');
-        $product->menu_id = $menuId;
-        $product->position = $request->input('position');
+        $request->validate([
+            'name' => 'required|string',
+            'position' => 'required|integer'
+        ]);
+        $product = new Product([
+            'name' => $request->input('name'),
+            'menu_id' => $menuId,
+            'position' => $request->input('position')
+        ]);
         $product->save();
         return redirect()->route('menus.show', $menuId);
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Show the form for editing the specified product.
      *
      * @param null $menuId
-     * @param $productId
+     * @param int $productId
      * @return \Illuminate\Http\Response
      */
     public function edit($menuId = null, $productId)
@@ -58,15 +59,19 @@ class ProductController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified product in storage.
      *
      * @param  \Illuminate\Http\Request $request
-     * @param $menuId
-     * @param $productId
+     * @param int $menuId
+     * @param int $productId
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $menuId, $productId)
     {
+        $request->validate([
+            'name' => 'required|string',
+            'position' => 'required|integer'
+        ]);
         $product = Product::findOrFail($productId);
         $product->name = $request->input('name');
         $product->position = $request->input('position');
@@ -75,13 +80,13 @@ class ProductController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified product from storage.
      *
-     * @param null $menuId
-     * @param $productId
+     * @param int $menuId
+     * @param int $productId
      * @return \Illuminate\Http\Response
      */
-    public function destroy($menuId = null, $productId)
+    public function destroy($menuId, $productId)
     {
         $product = Product::findOrFail($productId);
         $product->delete();

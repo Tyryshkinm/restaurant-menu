@@ -29,3 +29,7 @@
 .bc {
     display: flex;
 }
+
+.help-block {
+    color: red;
+}

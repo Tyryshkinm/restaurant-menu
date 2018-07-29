@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Api\MenuController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,3 +27,6 @@ Route::group([
         Route::get('user', 'AuthController@user');
     });
 });
+
+Route::get('menus', 'Api\MenuController@index');
+Route::get('menus/{id}', 'Api\MenuController@show');
