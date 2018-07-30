@@ -5,8 +5,6 @@ In this api you have to set two headers:
 
 `X-Requested-With: XMLHttpRequest`
 
-[TOC]
-
 ### User:
 #### Signup
 
@@ -95,7 +93,7 @@ Example response data (200):
 }
 ```
 ### Menu:
-#### Get a listing of the menu
+#### Get a listing of the menus
 
 ------------
 
@@ -124,7 +122,7 @@ Example response data (200):
 	}
 ]
 ```
-#### Get the specified menu (get products of the specified menu)
+#### Get the specified menu
 
 ------------
 
@@ -133,36 +131,16 @@ Method: `GET`
 
 URL: **/api/menus/{menu_id}**
 
-Example URL: /api/menus/1
-
 Example response data (200):
 ```json
-[
-	{
-		"id": 1,
-		"name": "Quesadilla",
-		"menu_id": 1,
-		"position": 1,
-		"created_at": "2018-07-29 08:35:51",
-		"updated_at": "2018-07-29 08:35:51"
-	},
-	{
-		"id": 2,
-		"name": "Ramen",
-		"menu_id": 1,
-		"position": 1,
-		"created_at": "2018-07-29 08:35:51",
-		"updated_at": "2018-07-29 08:35:51"
-	},
-	{
-		"id": 3,
-		"name": "Tom-Yam",
-		"menu_id": 1,
-		"position": 1,
-		"created_at": "2018-07-29 08:35:51",
-		"updated_at": "2018-07-29 08:35:51"
-	}
-]
+{
+	"id": 1,
+	"name": "Pan-Asian cuisine",
+	"enabledFrom": "2018-07-30 12:00:00",
+	"enabledUntil": "2018-07-30 16:00:00",
+	"created_at": "2018-07-30 20:03:40",
+	"updated_at": "2018-07-30 20:03:40"
+}
 ```
 #### Create new menu
 
@@ -235,6 +213,63 @@ Header: `Authorization: Bearer access_token `
 
 Response data (204): return null.
 ### Product:
+#### Get a listing of the products of the specified menu
+
+------------
+
+
+Method: `GET`
+
+URL: **/api/menus/{menu_id}/products**
+
+Example response data (200):
+```json
+[
+	{
+		"id": 1,
+		"name": "Quesadilla",
+		"menu_id": 1,
+		"position": 1,
+		"created_at": "2018-07-30 20:03:40",
+		"updated_at": "2018-07-30 20:03:40"
+	},
+	{
+		"id": 2,
+		"name": "Ramen",
+		"menu_id": 1,
+		"position": 2,
+		"created_at": "2018-07-30 20:03:40",
+		"updated_at": "2018-07-30 20:03:40"
+	},
+	{
+		"id": 3,
+		"name": "Tom-Yam",
+		"menu_id": 1,
+		"position": 3,
+		"created_at": "2018-07-30 20:03:40",
+		"updated_at": "2018-07-30 20:03:40"
+	}
+]
+```
+#### Get the specified product
+
+------------
+
+Method: `GET`
+
+URL: **/api/menus/{menu_id}/products/{product_id}**
+
+Example response data (200):
+```json
+{
+	"id": 1,
+	"name": "Quesadilla",
+	"menu_id": 1,
+	"position": 1,
+	"created_at": "2018-07-30 20:03:40",
+	"updated_at": "2018-07-30 20:03:40"
+}
+```
 #### Create new product to the specified menu
 
 ------------
