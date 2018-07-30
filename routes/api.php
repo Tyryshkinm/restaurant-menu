@@ -30,4 +30,4 @@ Route::group([
 Route::resource('menus', 'Api\MenuController', ['except' => ['create', 'edit']]);
 
 // Products routes
-Route::resource('menus.products', 'Api\ProductController', ['except' => ['index', 'create', 'edit', 'show']]);
+Route::resource('menus.products', 'Api\ProductController', ['except' => ['create', 'edit']]);

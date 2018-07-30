@@ -23,7 +23,7 @@
                                         {{ $menu->name }}
                                     </div>
                                     <div class="entity-btn">
-                                        <a href="{{ route('menus.show', $menu->id) }}">
+                                        <a href="{{ route('menus.products.index', $menu->id) }}">
                                             <button type="button" class="btn btn-info">View</button>
                                         </a>
                                         @if(Auth::check())

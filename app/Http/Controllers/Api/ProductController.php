@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Menu;
 use App\Product;
 use Illuminate\Http\Request;
 
@@ -10,7 +11,18 @@ class ProductController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth:api');
+        $this->middleware('auth:api', ['except' => ['index', 'show']]);
+    }
+
+    /**
+     * Get a listing of the products.
+     *
+     * @param Menu $menu
+     * @return mixed
+     */
+    public function index(Menu $menu)
+    {
+        return $menu->products->sortBy('position');
     }
 
     /**
@@ -29,6 +41,18 @@ class ProductController extends Controller
         $request->request->add(['menu_id' => $menuId]);
         $product = Product::create($request->all());
         return response()->json($product, 201);
+    }
+
+    /**
+     * Get the specified product.
+     *
+     * @param null $menuId
+     * @param Product $product
+     * @return Product
+     */
+    public function show($menuId = null, Product $product)
+    {
+        return $product;
     }
 
     /**

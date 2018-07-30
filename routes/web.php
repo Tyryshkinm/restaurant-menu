@@ -21,7 +21,7 @@ Auth::routes();
 Route::get('/', 'MenuController@index');
 
 // Menus routes
-Route::resource('menus', 'MenuController');
+Route::resource('menus', 'MenuController', ['except' => ['show']]);
 
 // Products routes
-Route::resource('menus.products', 'ProductController', ['except' => ['index', 'show']]);
+Route::resource('menus.products', 'ProductController', ['except' => ['show']]);

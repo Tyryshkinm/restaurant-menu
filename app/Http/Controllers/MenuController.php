@@ -3,13 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Menu;
+use App\Rules\EnabledFromOverlap;
+use App\Rules\EnabledUntilOverlap;
 use Illuminate\Http\Request;
 
 class MenuController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth', ['except' => ['index', 'show']]);
+        $this->middleware('auth', ['except' => ['index']]);
     }
 
     /**
@@ -43,8 +45,8 @@ class MenuController extends Controller
     {
         $request->validate([
             'name' => 'required|string',
-            'enabledFrom' => 'required',
-            'enabledUntil' => 'required'
+            'enabledFrom' => ['required', new EnabledFromOverlap($request['enabledUntil'])],
+            'enabledUntil' => ['required', 'after:enabledFrom', new EnabledUntilOverlap($request['enabledFrom'])]
         ]);
         $menu = new Menu([
             'name' => $request->input('name'),
@@ -55,17 +57,17 @@ class MenuController extends Controller
         return redirect()->route('menus.index');
     }
 
-    /**
-     * Display the specified menu.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        $menu = Menu::findOrFail($id);
-        return view('menus.show')->with('menu', $menu);
-    }
+//    /**
+//     * Display the specified menu.
+//     *
+//     * @param  int  $id
+//     * @return \Illuminate\Http\Response
+//     */
+//    public function show($id)
+//    {
+//        $menu = Menu::findOrFail($id);
+//        return view('menus.show')->with('menu', $menu);
+//    }
 
     /**
      * Show the form for editing the specified menu.
@@ -90,8 +92,8 @@ class MenuController extends Controller
     {
         $request->validate([
             'name' => 'required|string',
-            'enabledFrom' => 'required',
-            'enabledUntil' => 'required'
+            'enabledFrom' => ['required', new EnabledFromOverlap($request['enabledUntil'])],
+            'enabledUntil' => ['required', 'after:enabledFrom', new EnabledUntilOverlap($request['enabledFrom'])]
         ]);
         $menu = Menu::findOrFail($id);
         $menu->name = $request->input('name');

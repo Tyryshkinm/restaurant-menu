@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Menu;
+use App\Rules\EnabledFromOverlap;
+use App\Rules\EnabledUntilOverlap;
 use Illuminate\Http\Request;
 
 class MenuController extends Controller
@@ -33,8 +35,8 @@ class MenuController extends Controller
     {
         $request->validate([
             'name' => 'required|string',
-            'enabledFrom' => 'required',
-            'enabledUntil' => 'required'
+            'enabledFrom' => ['required', new EnabledFromOverlap($request['enabledUntil'])],
+            'enabledUntil' => ['required', 'after:enabledFrom', new EnabledUntilOverlap($request['enabledFrom'])]
         ]);
         $menu = Menu::create($request->all());
         return response()->json($menu, 201);
@@ -44,11 +46,11 @@ class MenuController extends Controller
      * Get the specified menu.
      *
      * @param Menu $menu
-     * @return mixed
+     * @return Menu
      */
     public function show(Menu $menu)
     {
-        return $menu->products;
+        return $menu;
     }
 
     /**
@@ -62,8 +64,8 @@ class MenuController extends Controller
     {
         $request->validate([
             'name' => 'required|string',
-            'enabledFrom' => 'required',
-            'enabledUntil' => 'required'
+            'enabledFrom' => ['required', new EnabledFromOverlap($request['enabledUntil'])],
+            'enabledUntil' => ['required', 'after:enabledFrom', new EnabledUntilOverlap($request['enabledFrom'])]
         ]);
         $menu->update($request->all());
         return response()->json($menu, 200);

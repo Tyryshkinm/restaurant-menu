@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Menu;
 use App\Product;
 use Illuminate\Http\Request;
 
@@ -9,7 +10,23 @@ class ProductController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth', ['except' => ['index']]);
+    }
+
+    /**
+     * Display a listing of the products.
+     *
+     * @param Menu $menu
+     * @return \Illuminate\Http\Response
+     */
+    public function index(Menu $menu)
+    {
+        $products = $menu->products->sortBy('position');
+        return view('products.index')->with([
+            'products' => $products,
+            'menuName' => $menu->name,
+            'menuId'   => $menu->id
+        ]);
     }
 
     /**
@@ -43,7 +60,7 @@ class ProductController extends Controller
             'position' => $request->input('position')
         ]);
         $product->save();
-        return redirect()->route('menus.show', $menuId);
+        return redirect()->route('menus.products.index', $menuId);
     }
 
     /**
@@ -69,15 +86,15 @@ class ProductController extends Controller
      */
     public function update(Request $request, $menuId, $productId)
     {
+        $product = Product::findOrFail($productId);
         $request->validate([
             'name' => 'required|string',
-            'position' => 'required|integer|unique_with:products,menu_id'
+            'position' => 'required|integer|unique_with:products,menu_id,' . $product->position . ' = position'
         ]);
-        $product = Product::findOrFail($productId);
         $product->name = $request->input('name');
         $product->position = $request->input('position');
         $product->save();
-        return redirect()->route('menus.show', $menuId);
+        return redirect()->route('menus.products.index', $menuId);
     }
 
     /**
@@ -91,6 +108,6 @@ class ProductController extends Controller
     {
         $product = Product::findOrFail($productId);
         $product->delete();
-        return redirect()->route('menus.show', $menuId);
+        return redirect()->route('menus.products.index', $menuId);
     }
 }
